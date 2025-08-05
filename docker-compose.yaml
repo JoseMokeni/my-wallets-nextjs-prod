@@ -1,8 +1,8 @@
 services:
   app-prod:
     image: josemokeni/my-wallets-nextjs
-    environment:
-      - NODE_ENV=production
+    env_file:
+      - .env
     depends_on:
       - postgres
     labels:
