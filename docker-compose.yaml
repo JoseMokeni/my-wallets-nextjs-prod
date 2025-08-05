@@ -1,6 +1,6 @@
 services:
   app-prod:
-    image: josemokeni/mywallets/nextjs-prod:latest
+    image: josemokeni/my-wallets-nextjs
     environment:
       - NODE_ENV=production
     depends_on:
