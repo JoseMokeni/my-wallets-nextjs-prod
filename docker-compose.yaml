@@ -12,6 +12,7 @@ services:
       - "traefik.http.routers.mywallets.entrypoints=websecure"
       - "traefik.http.routers.mywallets.tls=true"
       - "traefik.http.routers.mywallets.tls.certresolver=leresolver"
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - traefik-public
       - default
@@ -24,6 +25,17 @@ services:
       POSTGRES_DB: expense_tracker
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - default
+    restart: unless-stopped
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 10 --cleanup --rolling-restart
+    environment:
+      - WATCHTOWER_TIMEOUT=60s
+      - WATCHTOWER_LABEL_ENABLE=true
     networks:
       - default
     restart: unless-stopped
