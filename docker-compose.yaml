@@ -1,0 +1,36 @@
+services:
+  app-prod:
+    image: josemokeni/mywallets/nextjs-prod:latest
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - postgres
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mywallets.rule=Host(`mywallets.josemokeni.cloud`)"
+      - "traefik.http.services.mywallets.loadbalancer.server.port=3000"
+      - "traefik.http.routers.mywallets.entrypoints=websecure"
+      - "traefik.http.routers.mywallets.tls=true"
+      - "traefik.http.routers.mywallets.tls.certresolver=leresolver"
+    networks:
+      - traefik-public
+      - default
+    restart: unless-stopped
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: mywallets
+      POSTGRES_PASSWORD: securedpassword
+      POSTGRES_DB: expense_tracker
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - default
+    restart: unless-stopped
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  traefik-public:
+    external: true
