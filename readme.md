@@ -80,7 +80,13 @@ The application will be available at: `https://mywallets.josemokeni.cloud`
 ### Push Schema Changes
 
 ```bash
-docker compose exec app-prod npx prisma db push
+docker compose exec app-prod npx prisma db push --skip-generate
+```
+
+### Seed Database
+
+```bash
+docker compose exec app-prod npx prisma db seed
 ```
 
 ### Access Database
