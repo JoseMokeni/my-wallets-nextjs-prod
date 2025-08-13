@@ -37,6 +37,7 @@ Edit `.env` with your actual values:
 
 - `AUTH_SECRET`: Generate with `npx auth secret`
 - `AUTH_GITHUB_ID` & `AUTH_GITHUB_SECRET`: From GitHub OAuth App
+- `AUTH_GOOGLE_ID` & `AUTH_GOOGLE_SECRET`: From Google OAuth App
 - `DATABASE_URL`: PostgreSQL connection string
 
 ### 3. Database Setup
